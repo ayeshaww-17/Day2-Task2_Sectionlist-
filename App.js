@@ -1,20 +1,48 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { View, SectionList, Text, SafeAreaView } from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+const MySectionList = () => {
+  // Dummy data for the SectionList
+  const data = [
+    {
+      title: 'Beauty',
+      data: ['Facewash', 'Beauty Soap', 'Mosturizer'],
+    },
+    {
+      title: 'Clothing',
+      data: ['Eastern', 'Western', 'Kids'],
+    },
+    {
+      title: 'Bags',
+      data: ['Side Bag', 'Hand Bag', 'BackPack'],
+    },
+  ];
+
+  // Render each section header in the SectionList
+  const renderSectionHeader = ({ section: { title } }) => (
+    <View style={{ padding: 10, backgroundColor: 'lightgray' }}>
+      <Text>{title}</Text>
     </View>
   );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  // Render each item in the SectionList
+  const renderItem = ({ item }) => (
+    <View style={{ padding: 10 }}>
+      <Text>{item}</Text>
+    </View>
+  );
+
+  return (
+    <SafeAreaView>
+      <Text style={{fontSize:30}}>Section list</Text>
+    <SectionList
+      sections={data}
+      renderSectionHeader={renderSectionHeader}
+      renderItem={renderItem}
+      keyExtractor={(item, index) => item + index}
+    /></SafeAreaView>
+  );
+};
+
+export default MySectionList;
